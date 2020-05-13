@@ -5,6 +5,9 @@ import 'package:blogapp/src/views/utils/reuseable_widgets.dart';
 import 'package:flutter/material.dart';
 
 class WritePost extends StatelessWidget {
+  TextEditingController _titleController = TextEditingController();
+  TextEditingController _urlController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +27,7 @@ class WritePost extends StatelessWidget {
                 hintText: 'title',
                 enable: true,
                 dark: false,
+                textEditingController: _titleController,
               ),
               SingleLineInputTextField(
                 obscureText: false,
@@ -31,6 +35,7 @@ class WritePost extends StatelessWidget {
                 hintText: 'url',
                 enable: true,
                 dark: false,
+                textEditingController: _urlController,
               ),
               Container(
                 height: 300,

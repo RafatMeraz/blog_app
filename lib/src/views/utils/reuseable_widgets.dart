@@ -8,13 +8,15 @@ class SingleLineInputTextField extends StatelessWidget {
     @required this.labelText,
     @required this.obscureText,
     @required this.dark,
-    @required this.enable
+    @required this.enable,
+    @required this.textEditingController
   });
 
   final String hintText, labelText;
   final bool obscureText;
   final bool dark;
   final bool enable;
+  final TextEditingController textEditingController;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class SingleLineInputTextField extends StatelessWidget {
         child: TextField(
           enabled: enable,
           obscureText: obscureText,
+          controller: textEditingController,
           style: TextStyle(
               color: dark ? kSoftWhite : kSoftBlack
           ),

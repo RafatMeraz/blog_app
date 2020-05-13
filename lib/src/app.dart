@@ -1,5 +1,6 @@
 import 'package:blogapp/src/services/shared_pref_services/shared_pref_services.dart';
 import 'package:blogapp/src/views/ui/authenticate_page.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +28,8 @@ class _BlogAppState extends State<BlogApp> {
         theme: ThemeData(
           fontFamily: 'BaiJamjuree'
         ),
+        builder: BotToastInit(), //1. call BotToastInit
+        navigatorObservers: [BotToastNavigatorObserver()],
         debugShowCheckedModeBanner: false,
         home: AuthencatePage(),
       ),

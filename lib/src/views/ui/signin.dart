@@ -4,6 +4,9 @@ import 'package:blogapp/src/views/utils/reuseable_widgets.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatelessWidget {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,6 +93,7 @@ class SignIn extends StatelessWidget {
                         obscureText: false,
                         dark: true,
                         enable: true,
+                        textEditingController: _emailController,
                       ),
                       SingleLineInputTextField(
                         hintText: 'Password',
@@ -97,6 +101,7 @@ class SignIn extends StatelessWidget {
                         obscureText: true,
                         dark: true,
                         enable: true,
+                        textEditingController: _passwordController,
                       ),
                       RoundedRaisedButton(
                         color: kDarkOrange,

@@ -1,6 +1,7 @@
 import 'package:blogapp/src/business_logic/model_view/signup_modelview.dart';
 import 'package:blogapp/src/views/utils/contraints.dart';
 import 'package:blogapp/src/views/utils/reuseable_widgets.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +9,12 @@ import 'package:provider/provider.dart';
 import 'home.dart';
 
 class SignUp extends StatelessWidget {
+
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _confirmPasswordController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var signUpModelView = Provider.of<SignUpModelView>(context);
@@ -97,6 +104,7 @@ class SignUp extends StatelessWidget {
                           obscureText: false,
                           dark: true,
                           enable: true,
+                          textEditingController: _nameController,
                         ),
                         SingleLineInputTextField(
                           hintText: 'Email',
@@ -104,6 +112,7 @@ class SignUp extends StatelessWidget {
                           obscureText: false,
                           dark: true,
                           enable: true,
+                          textEditingController: _emailController,
                         ),
                         SingleLineInputTextField(
                           hintText: 'Password',
@@ -111,6 +120,7 @@ class SignUp extends StatelessWidget {
                           obscureText: true,
                           dark: true,
                           enable: true,
+                          textEditingController: _passwordController,
                         ),
                         SingleLineInputTextField(
                           hintText: 'Confirm Password',
@@ -118,13 +128,59 @@ class SignUp extends StatelessWidget {
                           obscureText: true,
                           dark: true,
                           enable: true,
+                          textEditingController: _confirmPasswordController,
                         ),
                         RoundedRaisedButton(
                           color: kDarkOrange,
                           textColor: kSoftWhite,
                           text: 'SIGN UP',
                           onPress: (){
-                            signUpModelView.signUp("Kaniz Fatema", 'kaniz@gmail.com', 'kaniz');
+                            bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(_emailController.text.trim());
+                            if (_nameController.text.trim().isNotEmpty){
+                              if (emailValid){
+                                if (_passwordController.text.length >= 6){
+                                  if (_passwordController.text == _confirmPasswordController.text){
+                                    signUpModelView.signUp(
+                                        _nameController.text.trim(),
+                                        _emailController.text.trim(),
+                                        _passwordController.text
+                                    );
+                                  } else {
+                                    BotToast.showText(
+                                        text: 'Both password does not match!',
+                                        contentColor: kDarkOrange,
+                                        textStyle: TextStyle(
+                                          color: kSoftWhite
+                                        )
+                                    );
+                                  }
+                                } else {
+                                  BotToast.showText(
+                                      text: 'Please enter a passwor more than 6 letters!',
+                                      contentColor: kDarkOrange,
+                                      textStyle: TextStyle(
+                                          color: kSoftWhite
+                                      )
+                                  );
+                                }
+                              } else {
+                                BotToast.showText(
+                                    text: 'Please enter a valid email!',
+                                    contentColor: kDarkOrange,
+                                    textStyle: TextStyle(
+                                        color: kSoftWhite
+                                    )
+                                );
+                              }
+                            } else {
+                              BotToast.showText(
+                                  text: 'Please enter your full name!',
+                                  contentColor: kDarkOrange,
+                                  textStyle: TextStyle(
+                                      color: kSoftWhite
+                                  )
+                              );
+                            }
                           },
                         ),
                         SizedBox(
@@ -160,4 +216,3 @@ class SignUp extends StatelessWidget {
     );
   }
 }
-

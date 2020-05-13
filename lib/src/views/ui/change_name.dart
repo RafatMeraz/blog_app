@@ -38,6 +38,7 @@ class ChangeName extends StatelessWidget {
               hintText: 'email@example.com',
               dark: false,
               enable: false,
+              textEditingController: null,
             ),
             SingleLineInputTextField(
               obscureText: false,
@@ -45,6 +46,7 @@ class ChangeName extends StatelessWidget {
               hintText: 'user name',
               dark: false,
               enable: true,
+              textEditingController: null,
             ),
             RoundedRaisedButton(
               color: kDarkOrange,
