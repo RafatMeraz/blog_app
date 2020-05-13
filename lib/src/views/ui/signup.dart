@@ -134,17 +134,26 @@ class SignUp extends StatelessWidget {
                           color: kDarkOrange,
                           textColor: kSoftWhite,
                           text: 'SIGN UP',
-                          onPress: (){
+                          onPress: () async{
                             bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(_emailController.text.trim());
                             if (_nameController.text.trim().isNotEmpty){
                               if (emailValid){
                                 if (_passwordController.text.length >= 6){
                                   if (_passwordController.text == _confirmPasswordController.text){
-                                    signUpModelView.signUp(
+                                    bool result = await signUpModelView.signUp(
                                         _nameController.text.trim(),
                                         _emailController.text.trim(),
                                         _passwordController.text
                                     );
+                                    if (result){
+                                      _nameController.dispose();
+                                      _passwordController.dispose();
+                                      _emailController.dispose();
+                                      _confirmPasswordController.dispose();
+                                      Navigator.pushReplacement(context, MaterialPageRoute(
+                                        builder: (BuildContext context) => Home()
+                                      ));
+                                    }
                                   } else {
                                     BotToast.showText(
                                         text: 'Both password does not match!',

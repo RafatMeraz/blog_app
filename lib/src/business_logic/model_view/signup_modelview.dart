@@ -8,13 +8,13 @@ class SignUpModelView with ChangeNotifier{
   BlogApiServices _blogApiServices = BlogApiServices();
   bool inProgress = false;
 
-  Future<dynamic> signUp(String name, String email, String password) async{
+  Future<bool> signUp(String name, String email, String password) async{
     inProgress = true;
     notifyListeners();
     var _response = await _blogApiServices.userSignUp(name, email, password);
-    inProgress = false;
-    notifyListeners();
     if (_response['error']){
+      inProgress = false;
+      notifyListeners();
       BotToast.showText(
           text: _response['status'],
           contentColor: kDarkOrange,
@@ -22,7 +22,14 @@ class SignUpModelView with ChangeNotifier{
               color: kSoftWhite
           )
       );
+      return false;
     } else {
+      inProgress = false;
+      notifyListeners();
+      SharedPrefServices.setInt('id', _response['id']);
+      SharedPrefServices.setString('email', _response['email']);
+      SharedPrefServices.setString('api_token', _response['api_token']);
+      return true;
     }
   }
 }

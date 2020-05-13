@@ -55,6 +55,23 @@ class BlogApiServices {
     }
   }
 
+  // user sign in method
+  Future<dynamic> getUserDetailsFromEmail(String email, String api_token) async{
+    try{
+      var response = await client.post(baseURL+'getUserDetailsFromEmail', body: {
+        'email': email,
+        'api_token': api_token
+      });
+      if (response.statusCode == 200){
+        return jsonDecode(response.body);
+      } else {
+        return response.statusCode;
+      }
+    } catch (e){
+      print(e.toString());
+    }
+  }
+
   // get all category
   Future<dynamic> getCategories() async{
     try{
