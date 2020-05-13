@@ -1,16 +1,35 @@
+import 'package:blogapp/src/services/shared_pref_services/shared_pref_services.dart';
 import 'package:blogapp/src/views/ui/authenticate_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class BlogApp extends StatelessWidget {
+import 'business_logic/model_view/signup_modelview.dart';
+
+class BlogApp extends StatefulWidget {
+  @override
+  _BlogAppState createState() => _BlogAppState();
+}
+
+class _BlogAppState extends State<BlogApp> {
+  @override
+  void initState() {
+    super.initState();
+    SharedPrefServices.init();
+  }
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Blog App',
-      theme: ThemeData(
-        fontFamily: 'BaiJamjuree'
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<SignUpModelView>(create: (context)=> SignUpModelView(),),
+      ],
+      child: MaterialApp(
+        title: 'Blog App',
+        theme: ThemeData(
+          fontFamily: 'BaiJamjuree'
+        ),
+        debugShowCheckedModeBanner: false,
+        home: AuthencatePage(),
       ),
-      debugShowCheckedModeBanner: false,
-      home: AuthencatePage(),
     );
   }
 }

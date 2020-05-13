@@ -1,3 +1,4 @@
+import 'package:blogapp/src/services/shared_pref_services/shared_pref_services.dart';
 import 'package:blogapp/src/services/web_services/blog_api_services.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -10,6 +11,8 @@ class SignUpModelView with ChangeNotifier{
     notifyListeners();
     var _response = await _blogApiServices.userSignUp(name, email, password);
     inProgress = false;
+    notifyListeners();
+    print(_response);
     if (_response['error']){
       print(_response['status']);
     } else {
