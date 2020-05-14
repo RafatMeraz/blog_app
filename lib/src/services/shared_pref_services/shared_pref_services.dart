@@ -14,6 +14,10 @@ class SharedPrefServices {
     return _prefsInstance.getString(key);
   }
 
+  static int getInt(String key) {
+    return _prefsInstance.getInt(key);
+  }
+
   static Future<bool> setString(String key, String value) async {
     var prefs = await _instance;
     return prefs.setString(key, value);

@@ -7,9 +7,27 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 
-class SignIn extends StatelessWidget {
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+class SignIn extends StatefulWidget {
+  @override
+  _SignInState createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+  TextEditingController _emailController, _passwordController;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,8 +129,6 @@ class SignIn extends StatelessWidget {
                                     _emailController.text.trim(),
                                     _passwordController.text);
                                 if (result) {
-                                  _passwordController.dispose();
-                                  _emailController.dispose();
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
