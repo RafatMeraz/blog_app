@@ -8,12 +8,32 @@ import 'package:provider/provider.dart';
 
 import 'home.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
 
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
+  @override
+  _SignUpState createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+  TextEditingController _nameController, _passwordController, _confirmPasswordController, _emailController;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController();
+    _passwordController = TextEditingController();
+    _confirmPasswordController = TextEditingController();
+    _emailController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _passwordController.dispose();
+    _emailController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -146,10 +166,6 @@ class SignUp extends StatelessWidget {
                                         _passwordController.text
                                     );
                                     if (result){
-                                      _nameController.dispose();
-                                      _passwordController.dispose();
-                                      _emailController.dispose();
-                                      _confirmPasswordController.dispose();
                                       Navigator.pushReplacement(context, MaterialPageRoute(
                                         builder: (BuildContext context) => Home()
                                       ));
