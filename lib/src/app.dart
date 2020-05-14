@@ -1,5 +1,6 @@
 import 'package:blogapp/src/services/shared_pref_services/shared_pref_services.dart';
 import 'package:blogapp/src/views/ui/authenticate_page.dart';
+import 'package:blogapp/src/views/ui/home.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +17,17 @@ class _BlogAppState extends State<BlogApp> {
   void initState() {
     super.initState();
     SharedPrefServices.init();
+    checkAlreadyLoggedIn();
   }
+
+  checkAlreadyLoggedIn(){
+    if (SharedPrefServices.getString('email') != null){
+      Navigator.pushReplacement(context, MaterialPageRoute(
+          builder: (BuildContext context) => Home()
+      ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
