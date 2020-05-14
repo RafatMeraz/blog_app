@@ -4,14 +4,14 @@ import 'package:blogapp/src/views/utils/contraints.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 
-class SignUpModelView with ChangeNotifier{
-  BlogApiServices _blogApiServices = BlogApiServices();
+class SignInModelView with ChangeNotifier{
+  BlogApiServices _blocApiServices = BlogApiServices();
   bool inProgress = false;
 
-  Future<bool> signUp(String name, String email, String password) async{
+  Future<bool> signIn(String email, String password) async{
     inProgress = true;
     notifyListeners();
-    var _response = await _blogApiServices.userSignUp(name, email, password);
+    var _response = await _blocApiServices.userSignIn(email, password);
     if (_response['error']){
       inProgress = false;
       notifyListeners();
