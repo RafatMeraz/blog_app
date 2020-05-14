@@ -1,16 +1,24 @@
 # blogapp
 
-A new Flutter application.
+Blog app is a content writing app for share blog about daily lifestyle.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+This project contains the several features like
+  - post a new blog
+  - update existing blog
+  - follow a user
+  - edit user profile
+  - add a post into favourites
+  - like a post
+  - search blog by user or title
+  - signup & signin
+  - category wise blog reading
 
-A few resources to get you started if this is your first Flutter project:
+## Frameworks
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+I am using following frameworks for this app
+  - Flutter
+  - Laravel Lumen (for REST API)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+As a back-end database it uses <b>MySQL</b>
