@@ -75,8 +75,9 @@ class BlogApiServices {
   // get all category
   Future<dynamic> getCategories() async{
     try{
+      var token = await SharedPrefServices.getString('api_token');
       var response = await client.post(baseURL+'signIn', body: {
-        'api_token': SharedPrefServices.getString('api_token')
+        'api_token': token
       });
       if (response.statusCode == 200){
         return jsonDecode(response.body);
