@@ -1,12 +1,16 @@
+import 'package:blogapp/src/business_logic/model_view/profile_viewmodel.dart';
+import 'package:blogapp/src/views/ui/authenticate_page.dart';
 import 'package:blogapp/src/views/ui/change_name.dart';
 import 'package:blogapp/src/views/utils/contraints.dart';
 import 'package:blogapp/src/views/utils/reuseable_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var profileViewModel = Provider.of<ProfileViewModel>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -118,7 +122,16 @@ class Profile extends StatelessWidget {
                     child: ListTile(
                       leading: Icon(Icons.exit_to_app),
                       title: Text('Logout'),
-                    )),
+                      onTap: () async{
+                        var result = await profileViewModel.signOut();
+                        if (result){
+                          Navigator.pushReplacement(context, MaterialPageRoute(
+                            builder: (BuildContext context) => AuthencatePage()
+                          ));
+                        }
+                      },
+                    )
+                ),
               ],
             ),
           ),

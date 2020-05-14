@@ -1,3 +1,4 @@
+import 'package:blogapp/src/business_logic/model_view/profile_viewmodel.dart';
 import 'package:blogapp/src/business_logic/model_view/signin_viewmodel.dart';
 import 'package:blogapp/src/services/shared_pref_services/shared_pref_services.dart';
 import 'package:blogapp/src/views/ui/authenticate_page.dart';
@@ -15,21 +16,6 @@ class BlogApp extends StatefulWidget {
 }
 
 class _BlogAppState extends State<BlogApp> {
-  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-   Future<bool> checkSignin() async {
-    final SharedPreferences prefs = await _prefs;
-    if (prefs.getString('api_token') != null){
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +23,7 @@ class _BlogAppState extends State<BlogApp> {
       providers: [
         ChangeNotifierProvider<SignUpViewModel>(create: (context)=> SignUpViewModel(),),
         ChangeNotifierProvider<SignInViewModel>(create: (context)=> SignInViewModel(),),
+        ChangeNotifierProvider<ProfileViewModel>(create: (context)=> ProfileViewModel(),),
       ],
       child: MaterialApp(
         title: 'Blog App',
@@ -46,7 +33,7 @@ class _BlogAppState extends State<BlogApp> {
         builder: BotToastInit(), //1. call BotToastInit
         navigatorObservers: [BotToastNavigatorObserver()],
         debugShowCheckedModeBanner: false,
-        home: checkSignin() != null ? Home() : AuthencatePage() ,
+        home: AuthencatePage() ,
       ),
     );
   }
