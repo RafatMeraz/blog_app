@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:blogapp/src/business_logic/models/category_model.dart';
 import 'package:blogapp/src/services/shared_pref_services/shared_pref_services.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 const baseURL = "https://pirox-foodapi.000webhostapp.com/";
@@ -73,16 +75,16 @@ class BlogApiServices {
   }
 
   // get all category
-  Future<dynamic> getCategories() async{
+  Future<CategoryModel> getCategories() async{
     try{
       var token = await SharedPrefServices.getString('api_token');
       var response = await client.post(baseURL+'signIn', body: {
         'api_token': token
       });
       if (response.statusCode == 200){
-        return jsonDecode(response.body);
+        return CategoryModel.fromJson(jsonDecode(response.body));
       } else {
-        return response.statusCode;
+        print(response.statusCode);
       }
     } catch (e){
       print(e.toString());
