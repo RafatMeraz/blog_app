@@ -1,21 +1,8 @@
-class CategoryModel {
-  List<_Category> _categories = List<_Category>();
-
-  CategoryModel.fromJson(var jsonResponse){
-    for(int i=0; i<jsonResponse.length; i++){
-      _Category _category = _Category(jsonResponse[i]);
-      _categories.add(_category);
-    }
-  }
-
-  List<_Category> get categoryList => this._categories;
-}
-
-class _Category {
+class Category {
   int _id;
   String _name;
 
-  _Category(var jsonCategory){
+  Category.fromJson(var jsonCategory){
     this._id = jsonCategory['id'];
     this._name = jsonCategory['name'];
   }

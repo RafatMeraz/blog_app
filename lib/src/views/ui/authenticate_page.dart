@@ -1,3 +1,4 @@
+import 'package:blogapp/src/business_logic/utils/constants.dart';
 import 'package:blogapp/src/services/shared_pref_services/shared_pref_services.dart';
 import 'package:blogapp/src/views/ui/signin.dart';
 import 'package:blogapp/src/views/ui/signup.dart';
@@ -23,6 +24,9 @@ class _AuthencatePageState extends State<AuthencatePage> {
   checkSignin() async {
     final SharedPreferences prefs = await _prefs;
     if (prefs.getString('api_token') != null){
+      Constants.email = prefs.getString('email');
+      Constants.api_token = prefs.getString('api_token');
+      Constants.id = prefs.getInt('id');
       Navigator.pushReplacement(context, MaterialPageRoute(
           builder: (BuildContext context) => Home()
       ));
