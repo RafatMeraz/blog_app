@@ -1,4 +1,4 @@
-import 'package:blogapp/src/business_logic/model_view/signin_modelview.dart';
+import 'package:blogapp/src/business_logic/model_view/signin_viewmodel.dart';
 import 'package:blogapp/src/services/shared_pref_services/shared_pref_services.dart';
 import 'package:blogapp/src/views/ui/authenticate_page.dart';
 import 'package:blogapp/src/views/ui/home.dart';
@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'business_logic/model_view/signup_modelview.dart';
+import 'business_logic/model_view/signup_viewmodel.dart';
 
 class BlogApp extends StatefulWidget {
   @override
@@ -35,8 +35,8 @@ class _BlogAppState extends State<BlogApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<SignUpModelView>(create: (context)=> SignUpModelView(),),
-        ChangeNotifierProvider<SignInModelView>(create: (context)=> SignInModelView(),),
+        ChangeNotifierProvider<SignUpViewModel>(create: (context)=> SignUpViewModel(),),
+        ChangeNotifierProvider<SignInViewModel>(create: (context)=> SignInViewModel(),),
       ],
       child: MaterialApp(
         title: 'Blog App',

@@ -26,4 +26,10 @@ class SharedPrefServices {
     var prefs = await _instance;
     return prefs.setInt(key, value);
   }
+
+  static Future<bool> clearAll() async {
+    var prefs = await _instance;
+    return prefs.clear();
+  }
+
 }

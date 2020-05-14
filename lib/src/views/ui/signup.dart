@@ -1,4 +1,4 @@
-import 'package:blogapp/src/business_logic/model_view/signup_modelview.dart';
+import 'package:blogapp/src/business_logic/model_view/signup_viewmodel.dart';
 import 'package:blogapp/src/views/utils/contraints.dart';
 import 'package:blogapp/src/views/utils/reuseable_widgets.dart';
 import 'package:bot_toast/bot_toast.dart';
@@ -37,7 +37,7 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    var signUpModelView = Provider.of<SignUpModelView>(context);
+    var signUpModelView = Provider.of<SignUpViewModel>(context);
     return ModalProgressHUD(
       inAsyncCall: signUpModelView.inProgress,
       child: Scaffold(
