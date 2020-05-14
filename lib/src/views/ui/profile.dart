@@ -1,4 +1,4 @@
-import 'package:blogapp/src/business_logic/model_view/profile_viewmodel.dart';
+import 'package:blogapp/src/business_logic/view_models/profile_viewmodel.dart';
 import 'package:blogapp/src/views/ui/authenticate_page.dart';
 import 'package:blogapp/src/views/ui/change_name.dart';
 import 'package:blogapp/src/views/utils/contraints.dart';

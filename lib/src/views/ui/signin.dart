@@ -1,4 +1,4 @@
-import 'package:blogapp/src/business_logic/model_view/signin_viewmodel.dart';
+import 'package:blogapp/src/business_logic/view_models/signin_viewmodel.dart';
 import 'package:blogapp/src/views/ui/home.dart';
 import 'package:blogapp/src/views/utils/contraints.dart';
 import 'package:blogapp/src/views/utils/reuseable_widgets.dart';

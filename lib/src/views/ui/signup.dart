@@ -1,4 +1,4 @@
-import 'package:blogapp/src/business_logic/model_view/signup_viewmodel.dart';
+import 'package:blogapp/src/business_logic/view_models/signup_viewmodel.dart';
 import 'package:blogapp/src/views/utils/contraints.dart';
 import 'package:blogapp/src/views/utils/reuseable_widgets.dart';
 import 'package:bot_toast/bot_toast.dart';

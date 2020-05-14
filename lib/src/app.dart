@@ -1,14 +1,12 @@
-import 'package:blogapp/src/business_logic/model_view/profile_viewmodel.dart';
-import 'package:blogapp/src/business_logic/model_view/signin_viewmodel.dart';
+import 'package:blogapp/src/business_logic/view_models/profile_viewmodel.dart';
+import 'package:blogapp/src/business_logic/view_models/signin_viewmodel.dart';
 import 'package:blogapp/src/services/shared_pref_services/shared_pref_services.dart';
 import 'package:blogapp/src/views/ui/authenticate_page.dart';
 import 'package:blogapp/src/views/ui/home.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'business_logic/model_view/signup_viewmodel.dart';
+import 'business_logic/view_models/signup_viewmodel.dart';
 
 class BlogApp extends StatefulWidget {
   @override
