@@ -1,18 +1,11 @@
 import 'dart:convert';
-import 'package:blogapp/src/business_logic/models/category_model.dart';
 import 'package:blogapp/src/business_logic/utils/constants.dart';
 import 'package:blogapp/src/services/shared_pref_services/shared_pref_services.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 const baseURL = "https://pirox-foodapi.000webhostapp.com/";
 class BlogApiServices {
   http.Client client = http.Client();
-//  static String token;
-
-//  BlogApiServices(){
-//    token = getToken();
-//  }
 
   // get the base url response
   Future<dynamic> fetchBaseUrl() async{
@@ -96,6 +89,23 @@ class BlogApiServices {
     }
   }
 
+ // get all posts
+  Future<dynamic> getPosts(String categoryId) async{
+    try{
+      var response = await client.post(baseURL+'getPosts', body: {
+        'api_token': Constants.api_token,
+        'type': categoryId
+      });
+      if (response.statusCode == 200){
+        return jsonDecode(response.body);
+      } else {
+        print(response.statusCode);
+      }
+    } catch (e){
+      print(e.toString());
+    }
+  }
+
   // post a new blog
   Future<dynamic> postNewBlog(String title, String image, String videoUrl, String content) async{
     try{
@@ -115,8 +125,4 @@ class BlogApiServices {
     }
   }
 
-  static String getToken(){
-    SharedPrefServices.init();
-    return SharedPrefServices.getString('api_token');
-  }
 }

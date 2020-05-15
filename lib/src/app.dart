@@ -23,7 +23,8 @@ class _BlogAppState extends State<BlogApp> {
         ChangeNotifierProvider<SignUpViewModel>(create: (context)=> SignUpViewModel(),),
         ChangeNotifierProvider<SignInViewModel>(create: (context)=> SignInViewModel(),),
         ChangeNotifierProvider<ProfileViewModel>(create: (context)=> ProfileViewModel(),),
-        ChangeNotifierProvider<PostViewModel>(create: (context)=> PostViewModel(),),
+        FutureProvider(create: (_)=> PostViewModel().getCategories()),
+        FutureProvider(create: (_)=> PostViewModel().getPosts())
       ],
       child: MaterialApp(
         title: 'Blog App',

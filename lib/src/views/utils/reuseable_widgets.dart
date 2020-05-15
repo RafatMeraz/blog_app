@@ -1,3 +1,4 @@
+import 'package:blogapp/src/business_logic/models/blog.dart';
 import 'package:blogapp/src/views/ui/post_details.dart';
 import 'package:flutter/material.dart';
 import 'contraints.dart';
@@ -94,9 +95,13 @@ class RoundedRaisedButton extends StatelessWidget {
 }
 
 class PostTile extends StatelessWidget {
+  PostTile({@required this.blog});
+
+  final Blog blog;
 
   @override
   Widget build(BuildContext context) {
+    print(blog.content);
     return InkWell(
       onTap: (){
         print('Tap');
@@ -117,7 +122,7 @@ class PostTile extends StatelessWidget {
             height: 10,
           ),
           Text(
-            'Title will be here',
+            '${blog.title}',
             style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500
@@ -127,7 +132,7 @@ class PostTile extends StatelessWidget {
             height: 5,
           ),
           Text(
-            'Its ancestors must include Material, MediaQuery, Directionality, and MaterialLocalizations. Typically all of these widgets are provided by MaterialApp and Scaffold. The label and clipBehavior arguments must not be null.',
+            '${blog.content}',
             softWrap: true,
             maxLines: 4,
             style: TextStyle(
