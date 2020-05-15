@@ -106,7 +106,7 @@ class PostTile extends StatelessWidget {
       onTap: (){
         print('Tap');
         Navigator.push(context, MaterialPageRoute(
-          builder: (BuildContext context)=> PostDetails()
+          builder: (BuildContext context)=> PostDetails(blog: blog,)
         ));
       },
       child: Column(

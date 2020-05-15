@@ -1,9 +1,33 @@
+import 'package:blogapp/src/business_logic/models/blog.dart';
 import 'package:blogapp/src/views/utils/contraints.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class PostDetails extends StatelessWidget {
+class PostDetails extends StatefulWidget {
+  PostDetails({@required this.blog});
+
+  final Blog blog;
+
+  @override
+  _PostDetailsState createState() => _PostDetailsState(
+    blog: blog
+  );
+}
+
+class _PostDetailsState extends State<PostDetails> {
+  _PostDetailsState({@required this.blog});
+  final Blog blog;
+  var dateTime;
+
+  @override
+  void initState() {
+    super.initState();
+    dateTime = DateTime.parse(blog.createdAt);
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -37,7 +61,7 @@ class PostDetails extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'Title will be here',
+                      '${widget.blog.title}',
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500
@@ -47,7 +71,7 @@ class PostDetails extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                      '12:29AM . 12 July, 2020',
+                      '${DateFormat('EEEE, H:MM, d MMM, yyyy').format(dateTime)}',
                       style: TextStyle(
                         fontSize: 12
                       ),
@@ -68,7 +92,7 @@ class PostDetails extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                      'Its ancestors must include Material, MediaQuery, Directionality, and MaterialLocalizations. Typically all of these widgets are provided by MaterialApp and Scaffold. The label and clipBehavior arguments must not be null.',
+                      '${widget.blog.content}',
                       softWrap: true,
                       maxLines: 4,
                       style: TextStyle(
