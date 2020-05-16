@@ -107,13 +107,15 @@ class BlogApiServices {
   }
 
   // post a new blog
-  Future<dynamic> postNewBlog(String title, String image, String videoUrl, String content) async{
+  Future<dynamic> postNewBlog({String title, String image, String videoUrl, String content}) async{
     try{
-      var response = await client.post(baseURL+'signIn', body: {
-        'api_token': SharedPrefServices.getString('api_token'),
+      var response = await client.post(baseURL+'postNewBlog', body: {
+        'api_token': Constants.api_token,
+        'user_id': Constants.id.toString(),
         'title': title,
         'url': videoUrl,
-        'description': content
+        'content': content,
+        'category_id': "1",
       });
       if (response.statusCode == 200){
         return jsonDecode(response.body);
