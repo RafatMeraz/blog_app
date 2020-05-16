@@ -1,8 +1,11 @@
 import 'dart:ui';
 
+import 'package:blogapp/src/business_logic/view_models/write_post_viewmodel.dart';
 import 'package:blogapp/src/views/utils/contraints.dart';
 import 'package:blogapp/src/views/utils/reuseable_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:path/path.dart';
 
 class WritePost extends StatelessWidget {
   TextEditingController _titleController = TextEditingController();
@@ -10,6 +13,8 @@ class WritePost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var writeNewBlogViewModel = Provider.of<WritePostViewModel>(context);
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -36,6 +41,26 @@ class WritePost extends StatelessWidget {
                 enable: true,
                 dark: false,
                 textEditingController: _urlController,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        writeNewBlogViewModel.image == null ? 'No Image Selected' : basename(writeNewBlogViewModel.image.path)
+                      ),
+                    ),
+                    OutlineButton(
+                      child: Text('SELECT'),
+                      onPressed: writeNewBlogViewModel.selectNewImage,
+                      textColor: kDarkOrange,
+                      borderSide: BorderSide(
+                        color: kDarkOrange
+                      ),
+                    )
+                  ],
+                ),
               ),
               Container(
                 height: 300,

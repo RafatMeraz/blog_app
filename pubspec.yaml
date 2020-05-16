@@ -29,6 +29,7 @@ dependencies:
   animations: ^1.0.0+5
   bot_toast: ^3.0.0
   intl: ^0.16.0
+  image_picker: ^0.6.6+1
 
 dev_dependencies:
   flutter_test:

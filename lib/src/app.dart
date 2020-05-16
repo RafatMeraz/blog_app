@@ -1,6 +1,7 @@
 import 'package:blogapp/src/business_logic/view_models/post_viewmodel.dart';
 import 'package:blogapp/src/business_logic/view_models/profile_viewmodel.dart';
 import 'package:blogapp/src/business_logic/view_models/signin_viewmodel.dart';
+import 'package:blogapp/src/business_logic/view_models/write_post_viewmodel.dart';
 import 'package:blogapp/src/services/shared_pref_services/shared_pref_services.dart';
 import 'package:blogapp/src/views/ui/authenticate_page.dart';
 import 'package:blogapp/src/views/ui/home.dart';
@@ -23,6 +24,7 @@ class _BlogAppState extends State<BlogApp> {
         ChangeNotifierProvider<SignUpViewModel>(create: (context)=> SignUpViewModel(),),
         ChangeNotifierProvider<SignInViewModel>(create: (context)=> SignInViewModel(),),
         ChangeNotifierProvider<ProfileViewModel>(create: (context)=> ProfileViewModel(),),
+        ChangeNotifierProvider<WritePostViewModel>(create: (context)=> WritePostViewModel(),),
         FutureProvider(create: (_)=> PostViewModel().getCategories()),
         FutureProvider(create: (_)=> PostViewModel().getPosts())
       ],
