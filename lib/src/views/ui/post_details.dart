@@ -1,7 +1,10 @@
 import 'package:blogapp/src/business_logic/models/blog.dart';
+import 'package:blogapp/src/business_logic/view_models/post_details_viewmodel.dart';
 import 'package:blogapp/src/views/utils/contraints.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class PostDetails extends StatefulWidget {
   PostDetails({@required this.blog});
@@ -27,6 +30,7 @@ class _PostDetailsState extends State<PostDetails> {
 
   @override
   Widget build(BuildContext context) {
+    var postDetailsViewModel = Provider.of<PostDetailsViewModel>(context);
 
     return Scaffold(
       body: SafeArea(
@@ -108,9 +112,30 @@ class _PostDetailsState extends State<PostDetails> {
                     ),
                     Row(
                       children: <Widget>[
-                        Icon(
-                          Icons.favorite,
+                        IconButton(
+                            icon: Icon(Icons.favorite,
                           color: kDarkOrange,
+                          ),
+                          onPressed: () async{
+                            var result = await postDetailsViewModel.addToFavourite(blog.id);
+                            if (result){
+                              BotToast.showText(
+                                text: postDetailsViewModel.status,
+                                textStyle: TextStyle(
+                                  color: Colors.white
+                                ),
+                                contentColor: Colors.green
+                              );
+                            } else {
+                              BotToast.showText(
+                                  text: postDetailsViewModel.status,
+                                  textStyle: TextStyle(
+                                      color: Colors.white
+                                  ),
+                                  contentColor: Colors.red
+                              );
+                            }
+                          },
                         ),
                         SizedBox(
                           width: 5,

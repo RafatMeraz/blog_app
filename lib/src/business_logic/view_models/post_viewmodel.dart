@@ -1,9 +1,6 @@
 import 'package:blogapp/src/business_logic/models/blog.dart';
 import 'package:blogapp/src/business_logic/models/category_model.dart';
 import 'package:blogapp/src/services/web_services/blog_api_services.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 
 class PostViewModel {
   BlogApiServices _blogApiServices = BlogApiServices();
@@ -34,5 +31,4 @@ class PostViewModel {
     }
     return _blogs;
   }
-
 }

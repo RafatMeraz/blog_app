@@ -107,6 +107,24 @@ class BlogApiServices {
     }
   }
 
+  // add to favourites
+  Future<dynamic> addToFavourites(String postId) async{
+    try{
+      var response = await client.post(baseURL+'addToFavourite', body: {
+        'api_token': Constants.api_token,
+        'post_id': postId,
+        'user_id': Constants.id.toString()
+      });
+      if (response.statusCode == 200){
+        return jsonDecode(response.body);
+      } else {
+        print(response.statusCode);
+      }
+    } catch (e){
+      print(e.toString());
+    }
+  }
+
   // post a new blog
   Future<dynamic> postNewBlog({String title, File image, String videoUrl, String content}) async{
     try{
