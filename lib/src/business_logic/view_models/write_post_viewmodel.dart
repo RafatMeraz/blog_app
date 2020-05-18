@@ -16,11 +16,16 @@ class WritePostViewModel with ChangeNotifier{
   File get image => this._image;
   bool get inProgress => this._inProgress;
 
+  void clearImage(){
+    this._image = null;
+    notifyListeners();
+  }
+
   Future<bool> postNewBlog(String title, String content, String videoUrl) async{
     _inProgress = true;
     notifyListeners();
     var _response = await _blogApiServices.postNewBlog(
-      image: '',
+      image: _image,
       content: content,
       videoUrl: videoUrl,
       title: title

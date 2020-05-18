@@ -72,7 +72,7 @@ class _WritePostState extends State<WritePost> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          writeNewBlogViewModel.image == null ? 'No Image Selected' : basename(writeNewBlogViewModel.image.path)
+                          writeNewBlogViewModel.image == null ? 'No Image Selected' : basename(writeNewBlogViewModel.image.path.split("/").last)
                         ),
                       ),
                       OutlineButton(
@@ -133,6 +133,11 @@ class _WritePostState extends State<WritePost> {
                             _urlController.text.trim()
                         );
                         if (result){
+                          _titleController.clear();
+                          _urlController.clear();
+                          _contentController.clear();
+                          writeNewBlogViewModel.clearImage();
+                          _urlController.clear();
                           Scaffold.of(context).showSnackBar(
                             SnackBar(
                                 content: Text(

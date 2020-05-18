@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:blogapp/src/business_logic/utils/constants.dart';
 import 'package:blogapp/src/services/shared_pref_services/shared_pref_services.dart';
 import 'package:http/http.dart' as http;
@@ -107,8 +108,11 @@ class BlogApiServices {
   }
 
   // post a new blog
-  Future<dynamic> postNewBlog({String title, String image, String videoUrl, String content}) async{
+  Future<dynamic> postNewBlog({String title, File image, String videoUrl, String content}) async{
     try{
+      String base64Image = base64Encode(image.readAsBytesSync());
+      String imageName = Constants.id.toString() + DateTime.now().millisecondsSinceEpoch.toString()+''+ image.path.split("/").last;
+      print(imageName);
       var response = await client.post(baseURL+'postNewBlog', body: {
         'api_token': Constants.api_token,
         'user_id': Constants.id.toString(),
@@ -116,6 +120,8 @@ class BlogApiServices {
         'url': videoUrl,
         'content': content,
         'category_id': "1",
+        'image': base64Image,
+        'image_name': imageName
       });
       if (response.statusCode == 200){
         return jsonDecode(response.body);
