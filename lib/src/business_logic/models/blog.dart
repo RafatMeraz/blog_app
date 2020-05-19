@@ -3,7 +3,6 @@ class Blog {
   String _images, _title, _content, _createdAt, _updatedAt;
 
   Blog.fromJson(var jsonBlog){
-    print(jsonBlog);
     this._id = jsonBlog['id'];
     this._userId = jsonBlog['user_id'];
     this._categoryId = jsonBlog['category_id'];

@@ -151,4 +151,22 @@ class BlogApiServices {
     }
   }
 
+  // get al favourites blog
+  Future<dynamic> getAllFavouritesBlog() async{
+    try{
+
+      var response = await client.post(baseURL+'getAllFavourites', body: {
+        'api_token': Constants.api_token,
+        'user_id': Constants.id.toString()
+      });
+      if (response.statusCode == 200){
+        return jsonDecode(response.body);
+      } else {
+        return response.statusCode;
+      }
+    } catch (e){
+      print(e.toString());
+    }
+  }
+
 }
