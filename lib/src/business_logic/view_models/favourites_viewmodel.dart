@@ -6,7 +6,9 @@ class FavouriteViewModel{
   BlogApiServices _blogApiServices = BlogApiServices();
   List<Favourite> _favourites = List();
   bool _inProgress = false;
+  String _status;
 
+  String get status => this._status;
   bool get inProgress => this._inProgress;
   List<Favourite> get favourites => this._favourites;
 
@@ -20,4 +22,15 @@ class FavouriteViewModel{
     _inProgress = false;
   }
 
+  Future<bool> removeToFavourites(int id) async{
+    var _response = await _blogApiServices.removeToFavourite(id);
+    print(_response);
+    if (_response['error']){
+      _status = _response['status'];
+      return false;
+    } else {
+      _status = _response['status'];
+      return true;
+    }
+  }
 }

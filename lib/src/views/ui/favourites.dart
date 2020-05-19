@@ -3,6 +3,7 @@ import 'package:blogapp/src/business_logic/view_models/favourites_viewmodel.dart
 import 'package:blogapp/src/views/utils/contraints.dart';
 import 'package:blogapp/src/views/utils/reuseable_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:progress_indicator_button/progress_button.dart';
 
 class Favourites extends StatefulWidget {
   @override
@@ -76,13 +77,43 @@ class _FavouritesState extends State<Favourites> {
                                   '${_favouriteViewModel.favourites[index].blog.content}',
                                   maxLines: 2,
                                 ),
-                                trailing: InkWell(
-                                  onTap: (){},
-                                  child: Icon(
-                                    Icons.delete_outline,
-                                    color: kDarkOrange,
+                                trailing: IconButton(
+                                  onPressed: () async{
+                                    var response = await _favouriteViewModel.removeToFavourites(_favouriteViewModel.favourites[index].id);
+                                    if (response){
+                                      _favouriteViewModel.favourites.clear();
+                                      setState(() {
+
+                                      });
+                                      Scaffold.of(context).showSnackBar(
+                                          SnackBar(
+                                              content: Text(
+                                                _favouriteViewModel.status,
+                                                style: TextStyle(
+                                                    color: Colors.white
+                                                ),
+                                              ),
+                                              backgroundColor: Colors.green
+                                          )
+                                      );
+                                    } else {
+                                      Scaffold.of(context).showSnackBar(
+                                          SnackBar(
+                                              content: Text(
+                                                _favouriteViewModel.status,
+                                                style: TextStyle(
+                                                    color: Colors.white
+                                                ),
+                                              ),
+                                              backgroundColor: Colors.red
+                                          )
+                                      );
+                                    }
+                                  },
+                                  icon: Icon(
+                                    Icons.delete_outline
                                   ),
-                                ),
+                                )
                               );
                             });
                       } else {

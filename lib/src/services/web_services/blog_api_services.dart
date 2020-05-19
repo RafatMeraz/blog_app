@@ -169,4 +169,22 @@ class BlogApiServices {
     }
   }
 
+  // remove from favourite blog
+  // get al favourites blog
+  Future<dynamic> removeToFavourite(int id) async{
+    try{
+      var response = await client.post(baseURL+'removeFromFavourite', body: {
+        'api_token': Constants.api_token,
+        'id': id.toString()
+      });
+      if (response.statusCode == 200){
+        return jsonDecode(response.body);
+      } else {
+        return response.statusCode;
+      }
+    } catch (e){
+      print(e.toString());
+    }
+  }
+
 }
