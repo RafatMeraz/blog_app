@@ -15,11 +15,48 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   int selectedIndex = 0;
+  PostViewModel _postViewModel;
+  var allPosts =  Container(
+      margin: EdgeInsets.only(left: 16),
+      child: Center(
+          child: CircularProgressIndicator(
+            backgroundColor: kDarkOrange,
+          )
+      )
+  );
+
+  @override
+  void initState() {
+    _postViewModel = new PostViewModel();
+    super.initState();
+    getPosts();
+  }
+
+  getPosts() async{
+    var posts = await _postViewModel.getPosts();
+    allPosts = Container(
+        margin: EdgeInsets.only(left: 16),
+        child: posts == null ? Center(
+            child: Text(
+              'Posts is empty',
+            )
+        ) : ListView.builder(
+            scrollDirection: Axis.vertical,
+            itemCount: posts.length,
+            itemBuilder: (context, index){
+              return PostTile(
+                blog: posts[index],
+              );
+            })
+    );
+    setState(() {
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     var catergoriesList = Provider.of<List<Category>>(context);
-    var postsList = Provider.of<List<Blog>>(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -51,21 +88,7 @@ class _DashboardState extends State<Dashboard> {
               height: 10,
             ),
             Expanded(
-              child: Container(
-                margin: EdgeInsets.only(left: 16),
-                child: postsList == null ? Center(
-                    child: CircularProgressIndicator(
-                      backgroundColor: kDarkOrange,
-                    )
-                ) : ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: postsList.length,
-                    itemBuilder: (context, index){
-                      return PostTile(
-                        blog: postsList[index],
-                      );
-                    })
-              ),
+              child: allPosts,
             )
           ],
         ),

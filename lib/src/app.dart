@@ -28,7 +28,6 @@ class _BlogAppState extends State<BlogApp> {
         ChangeNotifierProvider<WritePostViewModel>(create: (context)=> WritePostViewModel(),),
         ChangeNotifierProvider<PostDetailsViewModel>(create: (context)=> PostDetailsViewModel(),),
         FutureProvider(create: (_)=> PostViewModel().getCategories()),
-        FutureProvider(create: (_)=> PostViewModel().getPosts())
       ],
       child: MaterialApp(
         title: 'Blog App',
