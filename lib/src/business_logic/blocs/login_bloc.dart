@@ -1,6 +1,7 @@
 import 'package:blogapp/src/business_logic/blocs/login_event.dart';
 import 'package:blogapp/src/business_logic/blocs/login_states.dart';
 import 'package:blogapp/src/services/repository.dart';
+import 'package:blogapp/src/services/shared_pref_services/shared_pref_services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState>{
@@ -14,9 +15,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState>{
       yield LoginLoadingState();
       try {
         var _response = await _repository.userLogin(event.email, event.password);
-        if (_response['error'] == 1){
-          yield LoginFailedState(message: _response['message']);
+        if (_response['error']){
+          yield LoginFailedState(message: _response['status']);
         } else {
+          SharedPrefServices.setInt('id', _response['id']);
+          SharedPrefServices.setString('email', event.email);
+          SharedPrefServices.setString('api_token', _response['api_token']);
+          await Duration(seconds: 3000);
           yield LoginSuccessState();
         }
       } catch(_){
