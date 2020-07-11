@@ -42,7 +42,13 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    var signUpModelView = Provider.of<SignUpViewModel>(context);
+    BlocProvider.of<SignUpBloc>(context).listen((state) {
+      if (state is SignUpSuccessState){
+        Navigator.pushReplacement(context, MaterialPageRoute(
+          builder: (BuildContext context) => Home()
+        ));
+      }
+    });
     return Scaffold(
       body: SafeArea(
         child: Container(
