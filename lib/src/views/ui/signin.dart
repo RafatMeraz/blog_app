@@ -179,7 +179,6 @@ class _SignInState extends State<SignIn> {
                                         textStyle: TextStyle(color: kSoftWhite));
                                   }
                                 }
-
                               },
                             ),
                           );
