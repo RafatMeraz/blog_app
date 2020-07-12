@@ -9,4 +9,6 @@ class Repository {
   Future<dynamic> userSignUp(String name, String email, String password) => _blogApiServices.userSignUp(name, email, password);
 
   Future<dynamic> getAllPosts(String categoryId) => _blogApiServices.getPosts(categoryId);
+
+  Future<dynamic> getAllCategory() => _blogApiServices.getCategories();
 }
