@@ -5,6 +5,8 @@ import 'package:blogapp/src/business_logic/models/blog.dart';
 import 'package:blogapp/src/services/repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'post_states.dart';
+
 class PostBloc extends Bloc<PostEvent, PostState>{
   Repository _repository = Repository();
   List<Blog> allPostsList = List<Blog>();
@@ -15,10 +17,14 @@ class PostBloc extends Bloc<PostEvent, PostState>{
     if (event is GetAllPosts){
       try {
         var allPosts = await _repository.getAllPosts(event.id);
-        allPosts.forEach((element) {
-          allPostsList.add(Blog.fromJson(element));
-        });
-        yield PostsFetchedState(allPosts: allPostsList);
+        if (allPosts.length == 0){
+          yield PostsEmptyState();
+        } else {
+          allPosts.forEach((element) {
+            allPostsList.add(Blog.fromJson(element));
+          });
+          yield PostsFetchedState(allPosts: allPostsList);
+        }
       } catch (_){
         yield PostsErrorState();
       }

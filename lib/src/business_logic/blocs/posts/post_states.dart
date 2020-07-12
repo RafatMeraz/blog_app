@@ -18,3 +18,5 @@ class PostsFetchedState extends PostState {
 }
 
 class PostsInitialState extends PostState {}
+
+class PostsEmptyState extends PostState {}

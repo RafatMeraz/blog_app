@@ -1,12 +1,14 @@
-import 'package:blogapp/src/business_logic/models/blog.dart';
 import 'package:blogapp/src/business_logic/models/category_model.dart';
-import 'package:blogapp/src/business_logic/view_models/post_viewmodel.dart';
-import 'package:blogapp/src/views/utils/contraints.dart';
 import 'package:blogapp/src/views/utils/reuseable_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+
+import '../../business_logic/blocs/posts/post_bloc.dart';
+import '../../business_logic/blocs/posts/post_events.dart';
+import '../../business_logic/blocs/posts/post_states.dart';
+
 
 class Dashboard extends StatefulWidget {
   @override
@@ -15,43 +17,11 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   int selectedIndex = 0;
-  PostViewModel _postViewModel;
-  var allPosts =  Container(
-      margin: EdgeInsets.only(left: 16),
-      child: Center(
-          child: CircularProgressIndicator(
-            backgroundColor: kDarkOrange,
-          )
-      )
-  );
 
   @override
   void initState() {
-    _postViewModel = new PostViewModel();
     super.initState();
-    getPosts();
-  }
-
-  getPosts() async{
-    var posts = await _postViewModel.getPosts();
-    allPosts = Container(
-        margin: EdgeInsets.only(left: 16),
-        child: posts == null ? Center(
-            child: Text(
-              'Posts is empty',
-            )
-        ) : ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: posts.length,
-            itemBuilder: (context, index){
-              return PostTile(
-                blog: posts[index],
-              );
-            })
-    );
-    setState(() {
-
-    });
+    BlocProvider.of<PostBloc>(context).add(GetAllPosts(id: '1'));
   }
 
   @override
@@ -82,13 +52,50 @@ class _DashboardState extends State<Dashboard> {
               })
             ),
             HeaderWidget(
-              title: 'Recents',
+              title: 'Recent',
             ),
             SizedBox(
               height: 10,
             ),
             Expanded(
-              child: allPosts,
+              child:  BlocBuilder(
+                bloc: BlocProvider.of<PostBloc>(context),
+                builder: (context, state){
+                  if (state is PostsLoadingState){
+                    return Center(child: CircularProgressIndicator());
+                  } else if (state is PostsEmptyState){
+                    return Center(
+                      child: Text(
+                          'There is no post yet!'
+                      ),
+                    );
+                  } else if (state is PostsFetchedState){
+                    return ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: state.allPosts.length,
+                        itemBuilder: (context, index){
+                          return PostTile(
+                            blog: state.allPosts[index],
+                          );
+                        });
+                  } else if (state is PostsErrorState){
+                    return Center(
+                      child: Text(
+                          'Something went wrong!'
+                      ),
+                    );
+                  } else if (state is PostsFetchFailedState){
+                    return Center(
+                      child: Text(
+                          'Failed to fetch posts!'
+                      ),
+                    );
+                  } else if (state is PostsInitialState){
+                    Center(child: CircularProgressIndicator());
+                  }
+                  return Container();
+                },
+              ),
             )
           ],
         ),

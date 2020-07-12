@@ -5,6 +5,8 @@ import 'package:blogapp/src/business_logic/blocs/signup_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'src/app.dart';
+import 'src/business_logic/blocs/posts/post_bloc.dart';
+import 'src/business_logic/blocs/posts/post_states.dart';
 
 main() {
   MultiBlocProvider blocProvider = MultiBlocProvider(
@@ -14,6 +16,9 @@ main() {
       ),
       BlocProvider<SignUpBloc>(
         create: (_) => SignUpBloc(SignUpInitialState()),
+      ),
+      BlocProvider<PostBloc>(
+        create: (_) => PostBloc(PostsInitialState()),
       )
     ],
     child: BlogApp(),
