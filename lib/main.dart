@@ -1,3 +1,5 @@
+import 'package:blogapp/src/business_logic/blocs/category/category_bloc.dart';
+import 'package:blogapp/src/business_logic/blocs/category/category_states.dart';
 import 'package:blogapp/src/business_logic/blocs/login_bloc.dart';
 import 'package:blogapp/src/business_logic/blocs/login_states.dart';
 import 'package:blogapp/src/business_logic/blocs/signup_bloc.dart';
@@ -19,6 +21,9 @@ main() {
       ),
       BlocProvider<PostBloc>(
         create: (_) => PostBloc(PostsInitialState()),
+      ),
+      BlocProvider<CategoryBloc>(
+        create: (_) => CategoryBloc(CategoryInitialState()),
       )
     ],
     child: BlogApp(),

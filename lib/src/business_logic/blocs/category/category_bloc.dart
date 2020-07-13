@@ -12,10 +12,11 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState>{
 
   @override
   Stream<CategoryState> mapEventToState(CategoryEvent event) async* {
-    if (state is GetAllCategory){
+    if (event is GetAllCategory){
       yield CategoryLoadingState();
       try {
         var _response = await _repository.getAllCategory();
+        print(_response);
         if (_response.length == 0){
           yield CategoryEmptyState();
         } else {
