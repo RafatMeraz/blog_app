@@ -1,4 +1,5 @@
 
+import 'package:blogapp/src/business_logic/blocs/category/category_states.dart';
 import 'package:blogapp/src/business_logic/blocs/posts/post_events.dart';
 import 'package:blogapp/src/business_logic/blocs/posts/post_states.dart';
 import 'package:blogapp/src/business_logic/models/blog.dart';
@@ -16,6 +17,7 @@ class PostBloc extends Bloc<PostEvent, PostState>{
   Stream<PostState> mapEventToState(PostEvent event) async*{
     if (event is GetAllPosts){
       try {
+        yield PostsLoadingState();
         var allPosts = await _repository.getAllPosts(event.id);
         if (allPosts.length == 0){
           yield PostsEmptyState();
@@ -30,5 +32,4 @@ class PostBloc extends Bloc<PostEvent, PostState>{
       }
     }
   }
-
 }

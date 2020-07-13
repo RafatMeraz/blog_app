@@ -58,43 +58,46 @@ class _DashboardState extends State<Dashboard> {
               height: 10,
             ),
             Expanded(
-              child:  BlocBuilder(
-                bloc: BlocProvider.of<PostBloc>(context),
-                builder: (context, state){
-                  if (state is PostsLoadingState){
-                    return Center(child: CircularProgressIndicator());
-                  } else if (state is PostsEmptyState){
-                    return Center(
-                      child: Text(
-                          'There is no post yet!'
-                      ),
-                    );
-                  } else if (state is PostsFetchedState){
-                    return ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: state.allPosts.length,
-                        itemBuilder: (context, index){
-                          return PostTile(
-                            blog: state.allPosts[index],
-                          );
-                        });
-                  } else if (state is PostsErrorState){
-                    return Center(
-                      child: Text(
-                          'Something went wrong!'
-                      ),
-                    );
-                  } else if (state is PostsFetchFailedState){
-                    return Center(
-                      child: Text(
-                          'Failed to fetch posts!'
-                      ),
-                    );
-                  } else if (state is PostsInitialState){
-                    Center(child: CircularProgressIndicator());
-                  }
-                  return Container();
-                },
+              child: Container(
+                margin: EdgeInsets.only(left: 8),
+                child: BlocBuilder(
+                  bloc: BlocProvider.of<PostBloc>(context),
+                  builder: (context, state){
+                    if (state is PostsLoadingState){
+                      return Center(child: CircularProgressIndicator());
+                    } else if (state is PostsEmptyState){
+                      return Center(
+                        child: Text(
+                            'There is no post yet!'
+                        ),
+                      );
+                    } else if (state is PostsFetchedState){
+                      return ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: state.allPosts.length,
+                          itemBuilder: (context, index){
+                            return PostTile(
+                              blog: state.allPosts[index],
+                            );
+                          });
+                    } else if (state is PostsErrorState){
+                      return Center(
+                        child: Text(
+                            'Something went wrong!'
+                        ),
+                      );
+                    } else if (state is PostsFetchFailedState){
+                      return Center(
+                        child: Text(
+                            'Failed to fetch posts!'
+                        ),
+                      );
+                    } else if (state is PostsInitialState){
+                      Center(child: CircularProgressIndicator());
+                    }
+                    return Container();
+                  },
+                ),
               ),
             )
           ],
