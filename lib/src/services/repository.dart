@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:blogapp/src/business_logic/models/blog.dart';
 import 'package:blogapp/src/services/web_services/blog_api_services.dart';
 
@@ -11,4 +13,6 @@ class Repository {
   Future<dynamic> getAllPosts(String categoryId) => _blogApiServices.getPosts(categoryId);
 
   Future<dynamic> getAllCategory() => _blogApiServices.getCategories();
+
+  Future<dynamic> postNewBlog({String title, File image, String videoUrl, String content}) => _blogApiServices.postNewBlog(title: title, image: image, videoUrl: videoUrl, content: content);
 }
