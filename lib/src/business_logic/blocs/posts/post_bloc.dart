@@ -22,6 +22,7 @@ class PostBloc extends Bloc<PostEvent, PostState>{
         if (allPosts.length == 0){
           yield PostsEmptyState();
         } else {
+          allPostsList.clear();
           allPosts.forEach((element) {
             allPostsList.add(Blog.fromJson(element));
           });

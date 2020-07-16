@@ -4,9 +4,9 @@ import 'package:blogapp/src/business_logic/blocs/posts/post_states.dart';
 import 'package:blogapp/src/services/repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AddNewPostBlog extends Bloc<AddNewPostEvent, AddNewPostState> {
+class AddNewPostBloc extends Bloc<AddNewPostEvent, AddNewPostState> {
   final Repository _repository = Repository();
-  AddNewPostBlog(AddNewPostState initialState) : super(initialState);
+  AddNewPostBloc(AddNewPostState initialState) : super(initialState);
 
   @override
   Stream<AddNewPostState> mapEventToState(AddNewPostEvent event) async* {

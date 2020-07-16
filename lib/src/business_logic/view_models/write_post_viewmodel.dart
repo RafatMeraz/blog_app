@@ -41,12 +41,4 @@ class WritePostViewModel with ChangeNotifier{
     }
   }
 
-  Future selectNewImage() async{
-    try{
-      _image = await ImagePicker.pickImage(source: ImageSource.gallery);
-      notifyListeners();
-    } catch (e) {
-      print(e);
-    }
-  }
 }
